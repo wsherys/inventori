@@ -1,0 +1,23 @@
+echo "# inventori" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/wsherys/inventori.git
+git push -u origin master
+
+
+#hapus folder
+cd project
+rm -rfv .git
+
+#hapus by remote
+git init
+git remote add origin https://github.com/username/project.git
+git remove -v 
+
+#commit semua
+git add --all
+git commit -am "commit semua"
+
+#push ke github
+git push -f origin master

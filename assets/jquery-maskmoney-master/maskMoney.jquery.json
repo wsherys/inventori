@@ -1,0 +1,19 @@
+ation="High" />
+      <value name="Low" translation="Low" />
+      <value name="Medium" translation="Medium" />
+    </setting>
+    <setting name="Render Quality" translation="Render Quality">
+      <value name="High" translation="High" />
+      <value name="Low" translation="Low" />
+      <value name="Medium" translation="Medium" />
+      <value name="Very High" translation="Very High" />
+      <value name="Very Low" translation="Very Low" />
+    </setting>
+    <setting name="Resolution" translation="Resolution" />
+    <setting name="Shadow Quality" translation="Shadow Quality">
+      <value name="High" translation="High" />
+      <value name="Low" translation="Low" />
+      <value name="Medium" translation="Medium" />
+      <value name="Off" translation="Off" />
+    </setting>
+    <setting name="Texture Quality" translation="Texture Q
