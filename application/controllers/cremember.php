@@ -47,40 +47,39 @@ class cremember extends CI_Controller {
 
             if($nr==1)//cek data
             {
-             foreach($hasil->result() as $dt)
-              {
-                $sess_dt['username'] = $dt->username;
-                $sess_dt['password'] = $dt->password;
-                $sess_dt['kelas']    = $dt->kelas;
-                $this->session->set_userdata($sess_dt);
-              }
-             
-              if($this->session->userdata('kelas')=='ADMIN') 
-              {
-                $user=$this->session->userdata('username');
-                $dbuser=$this->db->query("SELECT * FROM user WHERE username='$user' ")->result();
-                foreach ($dbuser as $value1){}
-                $dbpc=$this->db->query("SELECT * FROM inventory_pc ")->num_rows();
-                $dbprinter=$this->db->query("SELECT * FROM inventory_printer ")->num_rows();
-                $dbscanner=$this->db->query("SELECT * FROM inventory_scanner ")->num_rows();
+                foreach($hasil->result() as $dt)
+                {
+                    $sess_dt['username'] = $dt->username;
+                    $sess_dt['password'] = $dt->password;
+                    $sess_dt['kelas']    = $dt->kelas;
+                    $this->session->set_userdata($sess_dt);
+                }
+                if($this->session->userdata('kelas')=='ADMIN') 
+                {
+                    $user=$this->session->userdata('username');
+                    $dbuser=$this->db->query("SELECT * FROM user WHERE username='$user' ")->result();
+                    foreach ($dbuser as $value1){}
+                    $dbpc=$this->db->query("SELECT * FROM inventory_pc ")->num_rows();
+                    $dbprinter=$this->db->query("SELECT * FROM inventory_printer ")->num_rows();
+                    $dbscanner=$this->db->query("SELECT * FROM inventory_scanner ")->num_rows();
 
-                foreach ($dbuser as $value){}
-                $data=array("nama"=>$value1->nama,"username"=>$value1->username,"image"=>$value1->image,"kelas"=>$value1->kelas, 
-                            "jmlpc"=>$dbpc, "jmlprinter"=>$dbprinter, "jmlscanner"=>$dbscanner);
-                $this->load->view('sidebar',$data);
-                $this->load->view('dashboard');
-              }
-              elseif($this->session->userdata('kelas')=='SUPERADMIN') 
-              {
-                  echo 'belum ada page SUPERADMIN';
-              }
-              else 
-              {
-                echo  '<script language="javascript">
-                alert ("belum ada page.");
-                window.location="redi_login";
-                </script>';
-              }
+                    foreach ($dbuser as $value){}
+                    $data=array("nama"=>$value1->nama,"username"=>$value1->username,"image"=>$value1->image,"kelas"=>$value1->kelas, 
+                                "jmlpc"=>$dbpc, "jmlprinter"=>$dbprinter, "jmlscanner"=>$dbscanner);
+                    $this->load->view('sidebar',$data);
+                    $this->load->view('dashboard');
+                }
+                elseif($this->session->userdata('kelas')=='SUPERADMIN') 
+                {
+                    echo 'belum ada page SUPERADMIN';
+                }
+                else 
+                {
+                    echo  '<script language="javascript">
+                    alert ("belum ada page.");
+                    window.location="redi_login";
+                    </script>';
+                }
 
             }
         }

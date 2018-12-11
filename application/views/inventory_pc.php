@@ -41,9 +41,7 @@
 							}
 							elseif($sukses=="")
 							{
-								echo '
-								
-								';
+								echo '';
 							}
 							elseif($sukses=="notvalid")
 							{

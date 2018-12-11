@@ -63,7 +63,7 @@
 							<div class="form-group mb-lg">
 								<div class="clearfix">
 									<label class="pull-left">Password</label>
-									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
+									<a href="#" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group input-group-icon">
 									<input name="pwd" type="password" class="form-control input-lg" />

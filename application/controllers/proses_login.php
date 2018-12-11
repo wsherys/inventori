@@ -48,9 +48,18 @@ class proses_login extends CI_Controller {
     }
     else
     {
-      redirect('cindex/index');//cek login
+      //redirect('cindex/index');//cek login
+      echo  '<script language="javascript">
+            alert ("akun anda belum terdaftar.");
+            window.location="register";
+            </script>';
     }
 
+  }
+
+  public function register()
+  {
+    $this->load->view('page_register');
   }
 
   public function forgot()

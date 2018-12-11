@@ -11,12 +11,12 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('cinv/inventory_pc');?>">
+							<a href="<?php echo site_url('cinv/inventory_printer');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
 						<li><span>Inventory</span></li>
-						<li><span>Inventory PC</span></li>
+						<li><span>Inventory Printer</span></li>
 					</ol>
 			
 					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -55,7 +55,7 @@
 								echo '
 								<div class="alert alert-danger alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Info!</strong> Mohon lengkapi form inventory pc dibawah ini.
+								<strong>Danger!</strong> Mohon lengkapi form inventory printer dibawah ini.
 								</div>
 								';
 							}
@@ -80,189 +80,53 @@
 								<a href="#" class="fa fa-caret-down"></a>
 								<!-- <a href="#" class="fa fa-times"></a> -->
 							</div>
-							<h2 class="panel-title">Ubah Inventory PC</h2>
+							<h2 class="panel-title">Form Inventory Printer</h2>
 						</header>
 						<div class="panel-body">
 							<?php foreach ($fquery as $v){}?>
-							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('crudinventory/editpc');?>">
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('crudinventory/insert_printer');?>">
 								
 								<!-- 1 -->
 								<div class="form-group">
 									
-									<label class="col-md-3 control-label" for="inputDefault">Kode Inventory PC</label>
+									<label class="col-md-3 control-label" for="inputDefault">Kode Inventory Printer</label>
 									<div class="col-md-6">
 										<input type="text" name="kode" class="form-control input-sm " id="inputDefault" 
-										value="<?php echo $v->kode_pc; ?>" readonly="" >
-										<input type="hidden" name="username" class="form-control input-sm" id="inputDefault" value="<?php echo $username; ?>" readonly="">
-										<input type="hidden" name="id" class="form-control input-sm" id="inputDefault" value="<?php echo $v->id; ?>" readonly="">
+										value="<?php echo $v->kode_printer; ?>" readonly="" >
 									</div>
 								</div>
-								<!-- 2 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Lokasi Proyek</label>
-									<div class="col-md-6">
-										<select name="proyek" data-plugin-selectTwo class="form-control input-sm populate">
-					                      <option value="<?php echo $v->proyek; ?>"><?php echo $v->proyek; ?></option>
-					                      <?php
-					                      $sel_proy=$this->db->query('SELECT nama_proyek FROM kategori_proyek')->result();
-					                      foreach ($sel_proy as $x){
-					                      ?>
-					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?></option>
-					                      <?php } ?>
+								
 
-					                    </select>
-									</div>
-								</div>
-								<!-- x3 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Pengguna</label>
-									<div class="col-md-6">
-										<select name="pengguna" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->pengguna; ?>"><?php echo $v->pengguna; ?></option>
-											<?php
-											$sel_proy=$this->db->query('SELECT nama FROM kategori_pengguna')->result();
-											foreach ($sel_proy as $x){
-											?>
-											<option value="<?php  echo $x->nama;?>"><?php echo $x->nama; ?></option>
-											<?php } ?>
-					                    </select>
-									</div>
-								</div>
 								<!-- 2 -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Processor</label>
+									<label class="col-md-3 control-label" for="inputDefault">Spesifikasi Printer</label>
 									<div class="col-md-6">
-										<select name="processor" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->processor; ?>"><?php echo $v->processor; ?></option>
+										<select name="printer" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                      $sel_proc=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="PROCESSOR" ')->result();
-					                      foreach ($sel_proc as $x){
+					                      $sel_print=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="PRINTER" ')->result();
+					                      foreach ($sel_print as $x){
 					                      ?>
 					                      <option value="<?php  echo $x->spesifikasi;?>"><?php echo $x->spesifikasi; ?> </option>
 					                      <?php } ?>
 					                    </select>
 									</div>
 								</div>
-								<!-- 3 -->
+
+								<!-- 2 -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">PSU</label>
+									<label class="col-md-3 control-label" for="inputDefault">Posisi Printer</label>
 									<div class="col-md-6">
-										<select name="psu" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->psu; ?>"><?php echo $v->psu; ?></option>
+										<select name="posisi" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                        $sel_psu=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="PSU" ')->result();
-					                        foreach ($sel_psu as $y){
-					                        ?>
-					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
-					                        <?php } ?>
-					                    </select>
-									</div>
-								</div>
-								<!-- 4 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">RAM</label>
-									<div class="col-md-6">
-										<select name="ram" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->ram; ?>"><?php echo $v->ram; ?></option>
-					                      <?php
-					                        $sel_ram=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="RAM" ')->result();
-					                        foreach ($sel_ram as $y){
-					                        ?>
-					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
-					                        <?php } ?>
-					                    </select>
-									</div>
-								</div>
-								<!-- 5 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">VGA</label>
-									<div class="col-md-6">
-										<select name="vga" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->vga; ?>"><?php echo $v->vga; ?></option>
-					                      <?php
-					                        $sel_vga=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="VGA" ')->result();
-					                        foreach ($sel_vga as $y){
-					                        ?>
-					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
-					                        <?php } ?>
-					                    </select>
-									</div>
-								</div>
-								<!-- 6 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">HARDISK</label>
-									<div class="col-md-6">
-										<select name="hardisk" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->hardisk; ?>"><?php echo $v->hardisk; ?></option>
-					                      <?php
-					                        $sel_hdd=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="HARDISK" ')->result();
-					                        foreach ($sel_hdd as $y){
-					                        ?>
-					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
-					                        <?php } ?>
-					                    </select>
-									</div>
-								</div>
-								<!-- 7 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">MOTHERBOARD</label>
-									<div class="col-md-6">
-										<select name="motherboard" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->motherboard; ?>"><?php echo $v->motherboard; ?></option>
-					                      <?php
-				                            $sel_mb=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="MOTHERBOARD" ')->result();
-				                            foreach ($sel_mb as $y){
-				                            ?>
-				                            <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
-				                            <?php } ?>
-					                    </select>
-									</div>
-								</div>
-								<!-- 8 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">LCD</label>
-									<div class="col-md-6">
-										<select name="lcd" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->lcd; ?>"><?php echo $v->lcd; ?></option>
-					                      <?php
-							              $sel_lcd=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="LCD" ')->result();
-							              foreach ($sel_lcd as $y){
-							              ?>
-							              <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
-							              <?php } ?>
-					                    </select>
-									</div>
-								</div>
-								<!-- 9 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Keyboard</label>
-									<div class="col-md-6">
-										<select name="keyboard" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->keyboard; ?>"><?php echo $v->keyboard; ?></option>
-					                      <?php
-					                        $sel_keyboard=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="KEYBOARD" ')->result();
-					                        foreach ($sel_keyboard as $y){
-					                        ?>
-					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
-					                        <?php } ?>
-					                    </select>
-									</div>
-								</div>
-								<!-- 10 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Mouse</label>
-									<div class="col-md-6">
-										<select name="mouse" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->mouse; ?>"><?php echo $v->mouse; ?></option>
-					                      <?php
-					                      $sel_mouse=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="MOUSE" ')->result();
-					                      foreach ($sel_mouse as $y){
+					                      $sel_lokasi=$this->db->query('SELECT nama_proyek FROM kategori_proyek ')->result();
+					                      foreach ($sel_lokasi as $x){
 					                      ?>
-					                      <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
+					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?> </option>
 					                      <?php } ?>
 					                    </select>
 									</div>
 								</div>
+
 								<!-- 11 -->
 								<div class="form-group">
 									<label class="col-md-3 control-label">Tanggal Diterima</label>
@@ -271,7 +135,7 @@
 											<span class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</span>
-											<input type="text" name="tgl" placeholder="month/day/year" value="<?php echo $v->tgl_digunakan; ?>" data-plugin-datepicker class="form-control input-sm">
+											<input type="text" name="tgl" placeholder="month/day/year" data-plugin-datepicker class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -279,7 +143,7 @@
 								<div class="form-group">
 									<div class="col-md-4 text-right">
 										<input type="submit" class="btn btn-primary">
-										<a href="<?php echo site_url('cinv/inventory_pc');?>">
+										<a href="<?php echo site_url('cinv/inventory_printer');?>">
 											<input type="button" value="kembali" class="btn btn-default">
 										</a>
 									</div>
@@ -332,7 +196,6 @@
 					</div>
 				</div>
 			</aside>
-			
 		</section>
 
 

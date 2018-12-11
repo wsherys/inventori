@@ -118,9 +118,6 @@ class crudinventory extends CI_Controller
 	public function page_edit()
     {
     	$id=$this->input->get('id', TRUE);
-
-		
-
         $user=$this->session->userdata("username");
 
         $dbuser=$this->db->query("SELECT * FROM user WHERE username='$user' ")->result();
@@ -138,9 +135,10 @@ class crudinventory extends CI_Controller
         $this->load->view('sidebar',$data);
         $this->load->view('form_edit_pc',$Q);
     }
-
     public function editpc()
     {
+    	$id=$this->input->post('id');
+
     	$kode=$this->input->post('kode');
 		$proyek=$this->input->post('proyek');
 		$pengguna=$this->input->post('pengguna');
@@ -154,8 +152,29 @@ class crudinventory extends CI_Controller
 		$keyboard =$this->input->post('keyboard');
 		$mouse =$this->input->post('mouse');
 		$tgl =$this->input->post('tgl');
-    }
 
+		$data=array(
+		'id'=>$id,
+		'kode_pc'=>$kode,
+		'proyek'=>$proyek,
+		'pengguna'=>$pengguna,
+		'processor'=>$processor,
+		'psu'=>$psu,
+		'ram'=>$ram,
+		'vga'=>$vga,
+		'hardisk'=>$hardisk,
+		'motherboard'=>$motherboard,
+		'lcd'=>$lcd,
+		'keyboard'=>$keyboard,
+		'mouse'=>$mouse,
+		'tgl_digunakan'=>$tgl
+		);
+
+		$this->load->model('dbinventory');
+		$this->db->where('id', $id);
+		$this->dbinventory->editpc($data);
+		redirect('cinv/inventory_pc');
+    }
 	public function page_delete()
     {
         $username=$this->session->userdata("username");
@@ -184,7 +203,6 @@ class crudinventory extends CI_Controller
 		$this->load->view('del_sidebar',$data);
 		$this->load->view('del_inventory_pc',$sukses);
     }
-
     public function confirm_delete()
 	{
 		$username=$this->input->post('username');
@@ -204,7 +222,6 @@ class crudinventory extends CI_Controller
 
 		redirect('cinv/success_inventorypc_del');
 	}
-
 	public function select_del()
     {
 
@@ -267,6 +284,66 @@ class crudinventory extends CI_Controller
 		}
 
 	}
+	public function page_editprinter()
+    {
+    	$id=$this->input->get('id', TRUE);
+        $user=$this->session->userdata("username");
+
+        $dbuser=$this->db->query("SELECT * FROM user WHERE username='$user' ")->result();
+        $dbpc=$this->db->query("SELECT * FROM inventory_pc ")->num_rows();
+        $dbprinter=$this->db->query("SELECT * FROM inventory_printer ")->num_rows();
+        $dbscanner=$this->db->query("SELECT * FROM inventory_scanner ")->num_rows();
+        foreach ($dbuser as $value1){}
+        $s="";
+        $data=array("nama"=>$value1->nama,"username"=>$value1->username,"image"=>$value1->image,"kelas"=>$value1->kelas, 
+                    "jmlpc"=>$dbpc, "jmlprinter"=>$dbprinter, "jmlscanner"=>$dbscanner,"sukses"=>$s);
+		
+		$fquery=$this->db->query("SELECT * FROM inventory_printer WHERE id='$id' ")->result();
+		$Q=array("fquery"=>$fquery);
+
+        $this->load->view('sidebar',$data);
+        $this->load->view('form_edit_printer',$Q);
+    }
+    public function editprinter()
+    {
+  		//$id=$this->input->post('id');
+
+  		//$kode=$this->input->post('kode');
+		// $proyek=$this->input->post('proyek');
+		// $pengguna=$this->input->post('pengguna');
+		// $processor=$this->input->post('processor');
+		// $psu=$this->input->post('psu');
+		// $ram=$this->input->post('ram'); 
+		// $vga=$this->input->post('vga');
+		// $hardisk =$this->input->post('hardisk');
+		// $motherboard=$this->input->post('motherboard');
+		// $lcd =$this->input->post('lcd');
+		// $keyboard =$this->input->post('keyboard');
+		// $mouse =$this->input->post('mouse');
+		// $tgl =$this->input->post('tgl');
+
+		// $data=array(
+		// 'id'=>$id,
+		// 'kode_pc'=>$kode,
+		// 'proyek'=>$proyek,
+		// 'pengguna'=>$pengguna,
+		// 'processor'=>$processor,
+		// 'psu'=>$psu,
+		// 'ram'=>$ram,
+		// 'vga'=>$vga,
+		// 'hardisk'=>$hardisk,
+		// 'motherboard'=>$motherboard,
+		// 'lcd'=>$lcd,
+		// 'keyboard'=>$keyboard,
+		// 'mouse'=>$mouse,
+		// 'tgl_digunakan'=>$tgl
+		// );
+
+		// $this->load->model('dbinventory');
+		// $this->db->where('id', $id);
+		// $this->dbinventory->editpc($data);
+		// redirect('cinv/inventory_pc');
+    }
 
 	public function page_del_printer()
     {
@@ -294,7 +371,6 @@ class crudinventory extends CI_Controller
 		$this->load->view('del_sidebar',$data);
 		$this->load->view('del_inventory_printer',$sukses);
     }
-
     public function del_printer()
 	{
 		$username=$this->input->post('username');

@@ -112,6 +112,8 @@
 										<td><?php echo $value2->spesifikasi_printer?></td>
 										<td><?php echo $value2->posisi_printer?></td>
 										<td>
+											<a href="<?php echo site_url('crudinventory/page_editprinter');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+											&nbsp;
 											<a href="<?php echo site_url('crudinventory/page_del_printer');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i>
 											</a>
 										</td>
