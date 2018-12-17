@@ -14,7 +14,7 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('cinv/inventory_pc');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_pc');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
@@ -206,7 +206,7 @@
 							<h4>Inventory PC</h4>
 							<p>Anda yakin, ingin menghapus data?</p>
 
-							<form method="post" action="<?php echo site_url('crudinventory/confirm_delete');?>">
+							<form method="post" action="<?php echo site_url('proses_inventory/confirm_delete');?>">
 
 				            	<input type="hidden" name="username" value="<?php echo $username; ?>">
 				            	<input type="hidden" name="kode" value="<?php echo $kode; ?>">
@@ -218,7 +218,7 @@
 	          <div class="modal-footer">
 	          					<input type="submit" id="desktop-success" value="yakin" class="btn btn-primary">
 				            </form>
-	            <a href="<?php echo site_url('cinv/inventory_pc');?>"> 
+	            <a href="<?php echo site_url('view_inventory/inventory_pc');?>"> 
 	            	<button type="button" class="btn btn-default" >Close</button>
 	            </a>
 	          </div>

@@ -11,15 +11,15 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('view_inventory/inventory_pc');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_scanner');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
 						<li><span>Inventory</span></li>
-						<li><span>Inventory PC</span></li>
+						<li><span>Inventory Scanner</span></li>
 					</ol>
-					&nbsp;&nbsp;&nbsp;
-					<!-- <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> -->
+			
+					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
 				</div>
 			</header>
 
@@ -35,20 +35,27 @@
 								echo '
 								<div class="alert alert-success alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses menambah form inventory pc.
+								<strong>Success!</strong> Sukses menambah form inventory scanner.
 								</div>
 								';
 							}
 							elseif($sukses=="")
 							{
-								echo '';
+								echo '
+								<div class="alert alert-info">
+									<strong>Informasi : </strong> Anda dapat menambah data terlebih dahulu di menu <strong> Kategori Data</strong>.
+									<br>
+									<strong>Tambah unit : </strong> Masukkan form dibawah ini dengan lengkap.
+								</div>
+
+								';
 							}
 							elseif($sukses=="notvalid")
 							{
 								echo '
 								<div class="alert alert-danger alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Danger!</strong> Mohon lengkapi form inventory pc dibawah ini.
+								<strong>Danger!</strong> Mohon lengkapi form inventory scanner dibawah ini.
 								</div>
 								';
 							}
@@ -61,20 +68,9 @@
 								</div>
 								';
 							}
-							elseif($sukses=="suksesedit")
-							{
-								echo '
-								<div class="alert alert-success alert-dismissible fade in">
-								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses mengubah data.
-								</div>
-								';
-							}
 						?>
 					</section>
 				</div>
-
-				
 
 				<div class="col-md-12">
 					<!-- body page -->
@@ -84,75 +80,89 @@
 								<a href="#" class="fa fa-caret-down"></a>
 								<!-- <a href="#" class="fa fa-times"></a> -->
 							</div>
-					
-							<h2 class="panel-title">INVENTORY SET PC</h2>
+							<h2 class="panel-title">Ubah Inventory Scanner</h2>
 						</header>
 						<div class="panel-body">
-							<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+							<?php foreach ($fquery as $v){} ?>
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('proses_inventory/editscanner');?>">
 								
-								<div class="mb-md">
-									<a href="<?php echo site_url('view_inventory/form_invpc');?>">
-										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Inventory</button>
-									</a>
-									<button  id="delete" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i>&nbsp; Delete Selected </button>
+								<!-- 1 -->
+								<div class="form-group">
+									
+									<label class="col-md-3 control-label" for="inputDefault">Kode Inventory Scanner</label>
+									<div class="col-md-6">
+										<input type="text" name="kode" class="form-control input-sm " id="inputDefault" 
+										value="<?php  echo $v->kode_scanner; ?>" readonly="" >
+										<input type="hidden" name="id" class="form-control input-sm " id="inputDefault" 
+										value="<?php  echo $v->id; ?>" readonly="" >
+									</div>
+								</div>
+								
 
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Spesifikasi Scanner</label>
+									<div class="col-md-6">
+										<select name="scanner" data-plugin-selectTwo class="form-control input-sm populate">
+											<option value="<?php  echo $v->spesifikasi_scanner; ?>"><?php  echo $v->spesifikasi_scanner; ?> </option>
+					                      <?php
+					                      $sel_print=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="SCANNER" ')->result();
+					                      foreach ($sel_print as $x){
+					                      ?>
+					                      <option value="<?php  echo $x->spesifikasi;?>"><?php echo $x->spesifikasi; ?> </option>
+					                      <?php } ?>
+					                    </select>
+									</div>
 								</div>
 
-								<thead>
-									<tr>
-										<th>Action</th>
-										<th>Date Accepted</th>
-										<th>Code PC</th>
-										<th>Processor</th>
-										<th>PSU</th>
-										<th>RAM</th>
-										<th>VGA</th>
-										<th>Hardisk</th>
-										<th>Motherboard</th>
-										<th>LCD</th>
-										<th>Keyboard</th>
-										<th>Mouse</th>
-										<th>Proyek</th>
-										<th>PC User</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									$dbipc=$this->db->query("SELECT * FROM inventory_pc ORDER BY id DESC")->result();
-    								foreach ($dbipc as $value2){
-									?>
-									<tr class="gradeX">
-										<td><input type="checkbox"  id="<?php echo $value2->kode_pc; ?>" name="id[]" value="<?php echo $value2->kode_pc; ?>"></td>
-										<td><?php echo $value2->tgl_digunakan?></td>
-										<td><?php echo $value2->kode_pc?></td>
-										<td><?php echo $value2->processor?></td>
-										<td><?php echo $value2->psu?></td>
-										<td><?php echo $value2->ram?></td>
-										<td><?php echo $value2->vga?></td>
-										<td><?php echo $value2->hardisk?></td>
-										<td><?php echo $value2->motherboard?></td>
-										<td><?php echo $value2->lcd?></td>
-										<td><?php echo $value2->keyboard?></td>
-										<td><?php echo $value2->mouse?></td>
-										<td><?php echo $value2->proyek?></td>
-										<td><?php echo $value2->pengguna?></td>
-										<td>
-											<a href="<?php echo site_url('proses_inventory/page_edit');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-											&nbsp;
-											<a href="<?php echo site_url('proses_inventory/page_delete');?>/?kode_pc=<?php echo $value2->kode_pc; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a></td>
-									</tr>
-									<?php } ?>
-									
-								</tbody>
-							</table>
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Posisi Scanner</label>
+									<div class="col-md-6">
+										<select name="posisi" data-plugin-selectTwo class="form-control input-sm populate">
+											<option value="<?php  echo $v->posisi_scanner; ?>"><?php  echo $v->posisi_scanner; ?> </option>
+					                      <?php
+					                      $sel_lokasi=$this->db->query('SELECT nama_proyek FROM input_proyek ')->result();
+					                      foreach ($sel_lokasi as $x){
+					                      ?>
+					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?> </option>
+					                      <?php } ?>
+					                    </select>
+									</div>
+								</div>
+
+								<!-- 11 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label">Tanggal Pembelian</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</span>
+											<input type="text" name="tgl" value="<?php echo $v->tgl_pembelian; ?>" placeholder="month/day/year" data-plugin-datepicker class="form-control input-sm">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-4 text-right">
+										<input type="submit" class="btn btn-primary">
+										<a href="<?php echo site_url('cinv/inventory_printer');?>">
+											<input type="button" value="kembali" class="btn btn-default">
+										</a>
+									</div>
+								</div>
+
+							</form>
 						</div>
 					</section>
 				</div>
+
+				
 			</div>
 
 
-			<!-- <aside id="sidebar-right" class="sidebar-right">
+			<aside id="sidebar-right" class="sidebar-right">
 				<div class="nano">
 					<div class="nano-content">
 						<a href="#" class="mobile-close visible-xs">
@@ -165,7 +175,7 @@
 								<h6>Upcoming Tasks</h6>
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 								
-								<h6>Form Tasks</h6>
+								<!-- <h6>Form Tasks</h6>
 								<div style="padding: 2%;">
 									<form action="" method="post" class="form-inline">
 										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
@@ -174,7 +184,7 @@
 
 										<button type="submit" class="btn btn-primary btn-sm">submit</button>
 									</form>
-								</div>
+								</div> -->
 
 								<ul>
 									<li>
@@ -189,12 +199,8 @@
 						</div>
 					</div>
 				</div>
-			</aside> -->
-			
+			</aside>
 		</section>
-
-
-		
 
 
 		
@@ -253,54 +259,6 @@
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.default.js"></script>
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.tabletools.js"></script>
-
-		<script>
-		$(document).ready(function(){
-		$('#checkAll').click(function(){
-		if(this.checked){
-		$('.checkbox').each(function(){
-		this.checked = true;
-		});   
-		}else{
-		$('.checkbox').each(function(){
-		this.checked = false;
-		});
-		} 
-		});
-
-		$('#delete').click(function(){
-			var dataArr  = new Array();
-			if($('input:checkbox:checked').length > 0){
-			$('input:checkbox:checked').each(function(){
-			dataArr.push($(this).attr('id'));
-			$(this).closest('tr').remove();
-			});
-			sendResponse(dataArr)
-			}else{
-			alert('No record selected ');
-		}
-
-		});  
-
-
-		function sendResponse(dataArr){
-		$.ajax({
-		type    : 'post',
-		url     : '<?php echo site_url('proses_inventory/select_del'); ?>',
-		data    : {'data' : dataArr},
-		success : function(response){
-		alert(response);
-		window.location.href = '<?php echo site_url('view_inventory/inventory_pc'); ?>'; 
-		},
-		error   : function(errResponse){
-		alert(errResponse);
-		window.location.href = '<?php echo site_url('view_inventory/inventory_pc'); ?>'; 
-		}                     
-		});
-		}
-
-		});
-		</script>
 
 
 	</body>

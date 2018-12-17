@@ -11,7 +11,7 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('cinv/inventory_printer');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_printer');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
@@ -84,7 +84,7 @@
 						</header>
 						<div class="panel-body">
 							<?php foreach ($fquery as $v){}?>
-							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('crudinventory/insert_printer');?>">
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('proses_inventory/editprinter');?>">
 								
 								<!-- 1 -->
 								<div class="form-group">
@@ -93,6 +93,8 @@
 									<div class="col-md-6">
 										<input type="text" name="kode" class="form-control input-sm " id="inputDefault" 
 										value="<?php echo $v->kode_printer; ?>" readonly="" >
+										<input type="hidden" name="id" class="form-control input-sm " id="inputDefault" 
+										value="<?php echo $v->id; ?>" readonly="" >
 									</div>
 								</div>
 								
@@ -102,6 +104,7 @@
 									<label class="col-md-3 control-label" for="inputDefault">Spesifikasi Printer</label>
 									<div class="col-md-6">
 										<select name="printer" data-plugin-selectTwo class="form-control input-sm populate">
+										<option value="<?php echo $v->spesifikasi_printer; ?>"><?php echo $v->spesifikasi_printer; ?> </option>
 					                      <?php
 					                      $sel_print=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="PRINTER" ')->result();
 					                      foreach ($sel_print as $x){
@@ -117,8 +120,9 @@
 									<label class="col-md-3 control-label" for="inputDefault">Posisi Printer</label>
 									<div class="col-md-6">
 										<select name="posisi" data-plugin-selectTwo class="form-control input-sm populate">
+											<option value="<?php echo $v->posisi_printer; ?>"><?php echo $v->posisi_printer; ?> </option>
 					                      <?php
-					                      $sel_lokasi=$this->db->query('SELECT nama_proyek FROM kategori_proyek ')->result();
+					                      $sel_lokasi=$this->db->query('SELECT nama_proyek FROM input_proyek ')->result();
 					                      foreach ($sel_lokasi as $x){
 					                      ?>
 					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?> </option>
@@ -135,7 +139,7 @@
 											<span class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</span>
-											<input type="text" name="tgl" placeholder="month/day/year" data-plugin-datepicker class="form-control input-sm">
+											<input type="text" name="tgl" value="<?php echo $v->tgl_pembelian; ?>" placeholder="month/day/year" data-plugin-datepicker class="form-control input-sm">
 										</div>
 									</div>
 								</div>

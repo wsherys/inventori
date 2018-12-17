@@ -9,17 +9,17 @@
 	<body>
 		<section role="main" class="content-body">
 			<header class="page-header">
-				<h2>Kategori</h2>
+				<h2>Inventory</h2>
 			
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('category/page_category');?>">
+							<a href="<?php echo site_url('cinv/inventory_printer');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
-						<li><span>Category</span></li>
-						<li><span>Data Category</span></li>
+						<li><span>Inventory</span></li>
+						<li><span>Inventory Printer</span></li>
 					</ol>
 			
 					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -38,20 +38,20 @@
 								echo '
 								<div class="alert alert-success alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses menambah form inventory pc.
+								<strong>Success!</strong> Sukses menambah form inventory scanner.
 								</div>
 								';
 							}
 							elseif($sukses=="")
 							{
-								echo ' ';
+								echo '';
 							}
 							elseif($sukses=="notvalid")
 							{
 								echo '
 								<div class="alert alert-danger alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Danger!</strong> Mohon lengkapi form inventory pc dibawah ini.
+								<strong>Danger!</strong> Mohon lengkapi form inventory scanner dibawah ini.
 								</div>
 								';
 							}
@@ -79,46 +79,45 @@
 								<!-- <a href="#" class="fa fa-times"></a> -->
 							</div>
 					
-							<h2 class="panel-title">KATEGORI DATA</h2>
+							<h2 class="panel-title">INVENTORY SCANNER</h2>
 						</header>
 						<div class="panel-body">
 							<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 								
 								<div class="mb-md">
-									<a href="<?php echo site_url('category/page_add');?>">
-										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Category</button>
+									<a href="<?php echo site_url('cinv/form_invscanner');?>">
+										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Inventory</button>
 									</a>
+
 									<button  id="delete" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i>&nbsp; Delete Selected </button>
+
 								</div>
 
 								<thead>
 									<tr>
 										<th>Action</th>
-										<th>Kategori</th>
-										<th>Spesifikasi</th>
-										<th>Kondisi</th>
-										<th>Serial Number</th>
-										<th>Product Number</th>
+										<th>Tanggal pembelian</th>
+										<th>kode Scanner</th>
+										<th>Spesifikasi Scanner</th>
+										<th>Posisi Scanner</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									$dbipc=$this->db->query("SELECT * FROM kategori ORDER BY id DESC")->result();
+									$dbipc=$this->db->query("SELECT * FROM inventory_scanner ORDER BY id DESC")->result();
     								foreach ($dbipc as $value2){
 									?>
 									<tr class="gradeX">
-										<td><input type="checkbox"  id="<?php echo $value2->id; ?>" name="id[]" value="<?php echo $value2->id; ?>"></td>
-										<td><?php echo $value2->kategori?></td>
-										<td><?php echo $value2->spesifikasi?></td>
-										<td><?php echo $value2->kondisi?></td>
-										<td><?php echo $value2->serial_number?></td>
-										<td><?php echo $value2->product_number?></td>
+										<td><input type="checkbox"  id="<?php echo $value2->kode_scanner; ?>" name="id[]" value="<?php echo $value2->kode_scanner; ?>"></td>
+										<td><?php echo $value2->tgl_pembelian?></td>
+										<td><?php echo $value2->kode_scanner?></td>
+										<td><?php echo $value2->spesifikasi_scanner?></td>
+										<td><?php echo $value2->posisi_scanner?></td>
 										<td>
-											
-											<a href="<?php echo site_url('category/page_edit');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-
-											<a href="<?php echo site_url('category/page_delete');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i>
+											<a href="<?php echo site_url('crudinventory/page_editscanner');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+											&nbsp;
+											<a href="<?php echo site_url('crudinventory/page_del_scanner');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i>
 											</a>
 										</td>
 									</tr>
@@ -128,47 +127,7 @@
 							</table>
 						</div>
 					</section>
-				</div>
-			</div>
 
-
-			<aside id="sidebar-right" class="sidebar-right">
-				<div class="nano">
-					<div class="nano-content">
-						<a href="#" class="mobile-close visible-xs">
-							Collapse <i class="fa fa-chevron-right"></i>
-						</a>
-			
-						<div class="sidebar-right-wrapper">
-			
-							<div class="sidebar-widget widget-calendar">
-								<h6>Upcoming Tasks</h6>
-								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
-								<!-- <h6>Form Tasks</h6>
-								<div style="padding: 2%;">
-									<form action="" method="post" class="form-inline">
-										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
-										<input type="title" name="title" placeholder="title" class="form-control input-sm">
-										<input type="task" name="task" placeholder="task" class="form-control input-sm">
-
-										<button type="submit" class="btn btn-primary btn-sm">submit</button>
-									</form>
-								</div> -->
-								<ul>
-									<li>
-										<time datetime="2014-04-19T00:00+00:00">04/19/2014</time>
-										<span>Company Meeting</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</aside>
-			
-		</section>
-
-		
 		<!-- submit -->
 		<!-- Modal auto backdrop-->
 	    <div class="modal fade" id="myModal" role="dialog">
@@ -187,11 +146,11 @@
 							<i class="fa fa-question-circle"></i>
 						</div>
 						<div class="modal-text">
-							<h4>Inventory PC</h4>
+							<h4>Inventory SCANNER</h4>
 							<p>Anda yakin, ingin menghapus data?</p>
 
-							<form method="post" action="<?php echo site_url('crud_category/confirm_delete');?>">
-				            	<input type="hidden" name="username" value="<?php echo $username; ?>">
+							<form method="post" action="<?php echo site_url('proses_inventory/del_scanner');?>">
+				            	<input type="hidden" name="username" value="<?php $user=$this->session->userdata("username"); echo $user; ?>">
 				            	<input type="hidden" name="id" value="<?php echo $id; ?>">
 						</div>
 					</div>
@@ -201,7 +160,7 @@
 	          <div class="modal-footer">
 	          					<input type="submit" id="desktop-success" value="yakin" class="btn btn-primary">
 				            </form>
-	            <a href="<?php echo site_url('category/page_category');?>"> 
+	            <a href="<?php echo site_url('view_inventory/inventory_scanner');?>"> 
 	            	<button type="button" class="btn btn-default" >Close</button>
 	            </a>
 	          </div>

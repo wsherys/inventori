@@ -11,12 +11,12 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('view_inventory/inventory_pc');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_scanner');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
 						<li><span>Inventory</span></li>
-						<li><span>Inventory PC</span></li>
+						<li><span>Inventory Scanner</span></li>
 					</ol>
 					&nbsp;&nbsp;&nbsp;
 					<!-- <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> -->
@@ -35,7 +35,7 @@
 								echo '
 								<div class="alert alert-success alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses menambah form inventory pc.
+								<strong>Success!</strong> Sukses menambah form inventory scanner.
 								</div>
 								';
 							}
@@ -48,7 +48,7 @@
 								echo '
 								<div class="alert alert-danger alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Danger!</strong> Mohon lengkapi form inventory pc dibawah ini.
+								<strong>Danger!</strong> Mohon lengkapi form inventory scanner dibawah ini.
 								</div>
 								';
 							}
@@ -85,15 +85,16 @@
 								<!-- <a href="#" class="fa fa-times"></a> -->
 							</div>
 					
-							<h2 class="panel-title">INVENTORY SET PC</h2>
+							<h2 class="panel-title">INVENTORY SCANNER</h2>
 						</header>
 						<div class="panel-body">
 							<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 								
 								<div class="mb-md">
-									<a href="<?php echo site_url('view_inventory/form_invpc');?>">
+									<a href="<?php echo site_url('view_inventory/form_invscanner');?>">
 										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Inventory</button>
 									</a>
+
 									<button  id="delete" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i>&nbsp; Delete Selected </button>
 
 								</div>
@@ -101,46 +102,30 @@
 								<thead>
 									<tr>
 										<th>Action</th>
-										<th>Date Accepted</th>
-										<th>Code PC</th>
-										<th>Processor</th>
-										<th>PSU</th>
-										<th>RAM</th>
-										<th>VGA</th>
-										<th>Hardisk</th>
-										<th>Motherboard</th>
-										<th>LCD</th>
-										<th>Keyboard</th>
-										<th>Mouse</th>
-										<th>Proyek</th>
-										<th>PC User</th>
+										<th>Tanggal pembelian</th>
+										<th>kode Scanner</th>
+										<th>Spesifikasi Scanner</th>
+										<th>Posisi Scanner</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									$dbipc=$this->db->query("SELECT * FROM inventory_pc ORDER BY id DESC")->result();
+									$dbipc=$this->db->query("SELECT * FROM inventory_scanner ORDER BY id DESC")->result();
     								foreach ($dbipc as $value2){
 									?>
 									<tr class="gradeX">
-										<td><input type="checkbox"  id="<?php echo $value2->kode_pc; ?>" name="id[]" value="<?php echo $value2->kode_pc; ?>"></td>
-										<td><?php echo $value2->tgl_digunakan?></td>
-										<td><?php echo $value2->kode_pc?></td>
-										<td><?php echo $value2->processor?></td>
-										<td><?php echo $value2->psu?></td>
-										<td><?php echo $value2->ram?></td>
-										<td><?php echo $value2->vga?></td>
-										<td><?php echo $value2->hardisk?></td>
-										<td><?php echo $value2->motherboard?></td>
-										<td><?php echo $value2->lcd?></td>
-										<td><?php echo $value2->keyboard?></td>
-										<td><?php echo $value2->mouse?></td>
-										<td><?php echo $value2->proyek?></td>
-										<td><?php echo $value2->pengguna?></td>
+										<td><input type="checkbox"  id="<?php echo $value2->id; ?>" name="id[]" value="<?php echo $value2->id; ?>"></td>
+										<td><?php echo $value2->tgl_pembelian?></td>
+										<td><?php echo $value2->kode_scanner?></td>
+										<td><?php echo $value2->spesifikasi_scanner?></td>
+										<td><?php echo $value2->posisi_scanner?></td>
 										<td>
-											<a href="<?php echo site_url('proses_inventory/page_edit');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+											<a href="<?php echo site_url('proses_inventory/page_editscanner');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
 											&nbsp;
-											<a href="<?php echo site_url('proses_inventory/page_delete');?>/?kode_pc=<?php echo $value2->kode_pc; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a></td>
+											<a href="<?php echo site_url('proses_inventory/page_del_scanner');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i>
+											</a>
+										</td>
 									</tr>
 									<?php } ?>
 									
@@ -165,17 +150,6 @@
 								<h6>Upcoming Tasks</h6>
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 								
-								<h6>Form Tasks</h6>
-								<div style="padding: 2%;">
-									<form action="" method="post" class="form-inline">
-										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
-										<input type="title" name="title" placeholder="title" class="form-control input-sm">
-										<input type="task" name="task" placeholder="task" class="form-control input-sm">
-
-										<button type="submit" class="btn btn-primary btn-sm">submit</button>
-									</form>
-								</div>
-
 								<ul>
 									<li>
 										<time datetime="2014-04-19T00:00+00:00">04/19/2014</time>
@@ -192,11 +166,6 @@
 			</aside> -->
 			
 		</section>
-
-
-		
-
-
 		
 
 		<!-- Vendor -->
@@ -286,15 +255,15 @@
 		function sendResponse(dataArr){
 		$.ajax({
 		type    : 'post',
-		url     : '<?php echo site_url('proses_inventory/select_del'); ?>',
+		url     : '<?php echo site_url('proses_inventory/select_delscanner'); ?>',
 		data    : {'data' : dataArr},
 		success : function(response){
 		alert(response);
-		window.location.href = '<?php echo site_url('view_inventory/inventory_pc'); ?>'; 
+		window.location.href = '<?php echo site_url('view_inventory/inventory_scanner'); ?>'; 
 		},
 		error   : function(errResponse){
 		alert(errResponse);
-		window.location.href = '<?php echo site_url('view_inventory/inventory_pc'); ?>'; 
+		window.location.href = '<?php echo site_url('view_inventory/inventory_scanner'); ?>'; 
 		}                     
 		});
 		}

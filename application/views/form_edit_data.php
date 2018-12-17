@@ -11,7 +11,7 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('view_inventory/inventory_pc');?>">
+							<a href="<?php echo site_url('view_data/data_inventory');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
@@ -35,7 +35,7 @@
 								echo '
 								<div class="alert alert-success alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses menambah form inventory pc.
+								<strong>Success!</strong> Sukses menambah form data.
 								</div>
 								';
 							}
@@ -48,7 +48,7 @@
 								echo '
 								<div class="alert alert-danger alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Danger!</strong> Mohon lengkapi form inventory pc dibawah ini.
+								<strong>Info!</strong> Mohon lengkapi form data dibawah ini.
 								</div>
 								';
 							}
@@ -61,20 +61,9 @@
 								</div>
 								';
 							}
-							elseif($sukses=="suksesedit")
-							{
-								echo '
-								<div class="alert alert-success alert-dismissible fade in">
-								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses mengubah data.
-								</div>
-								';
-							}
 						?>
 					</section>
 				</div>
-
-				
 
 				<div class="col-md-12">
 					<!-- body page -->
@@ -84,71 +73,93 @@
 								<a href="#" class="fa fa-caret-down"></a>
 								<!-- <a href="#" class="fa fa-times"></a> -->
 							</div>
-					
-							<h2 class="panel-title">INVENTORY SET PC</h2>
+							<h2 class="panel-title">Form Data</h2>
 						</header>
 						<div class="panel-body">
-							<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+							<?php foreach ($fquery as $v){}?>
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('proses_data/editdata');?>">
 								
-								<div class="mb-md">
-									<a href="<?php echo site_url('view_inventory/form_invpc');?>">
-										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Inventory</button>
-									</a>
-									<button  id="delete" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i>&nbsp; Delete Selected </button>
 
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Category</label>
+									<div class="col-md-6">
+										<select name="category" data-plugin-selectTwo class="form-control input-sm populate">
+											<option value="<?php echo $v->kategori; ?>"><?php echo $v->kategori; ?></option>
+
+											<option value="PROCESSOR">PROCESSOR</option>
+											<option value="PSU">PSU</option>
+											<option value="RAM">RAM</option>
+											<option value="VGA">VGA</option>
+											<option value="HARDISK">HARDISK</option>
+											<option value="MOTHERBOARD">MOTHERBOARD</option>
+											<option value="LCD">LCD</option>
+											<option value="KEYBOARD">KEYBOARD</option>
+											<option value="MOUSE">MOUSE</option>
+
+											<option value="PRINTER">PRINTER</option>
+											<option value="SCANNER">SCANNER</option>
+					                    </select>
+									</div>
+								</div>
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Spesification</label>
+									<div class="col-md-6">
+										<input type="hidden" name="id" value="<?php echo $v->id; ?>" placeholder="input id" class="form-control input-sm">
+										<input type="text" name="spesification" id="spek" onkeyup="spekk()" value="<?php echo $v->spesifikasi; ?>" placeholder="input spesification" class="form-control input-sm">
+									</div>
+								</div>
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Condition Item</label>
+									<div class="col-md-6">
+										<select name="condition" class="form-control input-sm">
+											<option value="<?php echo $v->kondisi; ?>"><?php echo $v->kondisi; ?></option>
+											<option value="NEW">NEW/BARU</option>
+											<option value="SECOND">SECOND/BEKAS</option>
+										</select>
+									</div>
+								</div>
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Serial Number</label>
+									<div class="col-md-6">
+										<input type="text" name="serial_number" placeholder="input serial number" value="<?php echo $v->serial_number; ?>" class="form-control input-sm">
+									</div>
+								</div>
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Product Number</label>
+									<div class="col-md-6">
+										<input type="text" name="product_number" placeholder="input product number" value="<?php echo $v->product_number; ?>" class="form-control input-sm">
+									</div>
+								</div>
+								<!-- 2 -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="inputDefault">Price Item</label>
+									<div class="col-md-6">
+										<input type="text" name="price" placeholder="input price item" id="price" value="<?php echo $v->price; ?>" class="form-control input-sm">
+									</div>
+								</div>
+								
+								
+
+								<div class="form-group">
+									<div class="col-md-4 text-right">
+										<input type="submit" class="btn btn-primary">
+										<a href="<?php echo site_url('view_data/data_inventory');?>">
+											<input type="button" value="kembali" class="btn btn-default">
+										</a>
+									</div>
 								</div>
 
-								<thead>
-									<tr>
-										<th>Action</th>
-										<th>Date Accepted</th>
-										<th>Code PC</th>
-										<th>Processor</th>
-										<th>PSU</th>
-										<th>RAM</th>
-										<th>VGA</th>
-										<th>Hardisk</th>
-										<th>Motherboard</th>
-										<th>LCD</th>
-										<th>Keyboard</th>
-										<th>Mouse</th>
-										<th>Proyek</th>
-										<th>PC User</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									$dbipc=$this->db->query("SELECT * FROM inventory_pc ORDER BY id DESC")->result();
-    								foreach ($dbipc as $value2){
-									?>
-									<tr class="gradeX">
-										<td><input type="checkbox"  id="<?php echo $value2->kode_pc; ?>" name="id[]" value="<?php echo $value2->kode_pc; ?>"></td>
-										<td><?php echo $value2->tgl_digunakan?></td>
-										<td><?php echo $value2->kode_pc?></td>
-										<td><?php echo $value2->processor?></td>
-										<td><?php echo $value2->psu?></td>
-										<td><?php echo $value2->ram?></td>
-										<td><?php echo $value2->vga?></td>
-										<td><?php echo $value2->hardisk?></td>
-										<td><?php echo $value2->motherboard?></td>
-										<td><?php echo $value2->lcd?></td>
-										<td><?php echo $value2->keyboard?></td>
-										<td><?php echo $value2->mouse?></td>
-										<td><?php echo $value2->proyek?></td>
-										<td><?php echo $value2->pengguna?></td>
-										<td>
-											<a href="<?php echo site_url('proses_inventory/page_edit');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-											&nbsp;
-											<a href="<?php echo site_url('proses_inventory/page_delete');?>/?kode_pc=<?php echo $value2->kode_pc; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a></td>
-									</tr>
-									<?php } ?>
-									
-								</tbody>
-							</table>
+							</form>
 						</div>
 					</section>
 				</div>
+
+				
 			</div>
 
 
@@ -196,26 +207,24 @@
 
 		
 
-
-		
-
 		<!-- Vendor -->
 		<script src="<?php echo base_url();?>/assets/vendor/jquery/jquery.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap/js/bootstrap.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/magnific-popup/magnific-popup.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+		<!-- <script src="<?php echo base_url();?>/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
+
+		
 		<!-- Specific Page Vendor -->
 		<script src="<?php echo base_url();?>/assets/vendor/pnotify/pnotify.custom.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-		<script src="<?php echo base_url();?>/assets/vendor/select2/select2.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-maskedinput/jquery.maskedinput.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
@@ -236,9 +245,13 @@
 		<script src="<?php echo base_url();?>/assets/vendor/summernote/summernote.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/ios7-switch/ios7-switch.js"></script>
+
+		<!-- select2 -->
+		<script src="<?php echo base_url();?>/assets/vendor/select2/select2.js"></script>
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="<?php echo base_url();?>/assets/javascripts/theme.js"></script>
-		
+
 		<!-- Theme Custom -->
 		<script src="<?php echo base_url();?>/assets/javascripts/theme.custom.js"></script>
 		
@@ -254,54 +267,27 @@
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.tabletools.js"></script>
 
+		<!-- uppper -->
+		<script>
+		function spekk() 
+		{
+			var x = document.getElementById("spek");
+			x.value = x.value.toUpperCase();
+		}
+		
+		</script>
+		<!-- uppper -->
+
+		<!-- jquery-maskmoney-master -->
+		<script src="<?php echo base_url();?>/assets/jquery-maskmoney-master/dist/jquery.maskMoney.js"></script>
+		<script src="<?php echo base_url();?>/assets/jquery-maskmoney-master/dist/jquery.maskMoney.min.js"></script>
+
 		<script>
 		$(document).ready(function(){
-		$('#checkAll').click(function(){
-		if(this.checked){
-		$('.checkbox').each(function(){
-		this.checked = true;
-		});   
-		}else{
-		$('.checkbox').each(function(){
-		this.checked = false;
-		});
-		} 
-		});
-
-		$('#delete').click(function(){
-			var dataArr  = new Array();
-			if($('input:checkbox:checked').length > 0){
-			$('input:checkbox:checked').each(function(){
-			dataArr.push($(this).attr('id'));
-			$(this).closest('tr').remove();
-			});
-			sendResponse(dataArr)
-			}else{
-			alert('No record selected ');
-		}
-
-		});  
-
-
-		function sendResponse(dataArr){
-		$.ajax({
-		type    : 'post',
-		url     : '<?php echo site_url('proses_inventory/select_del'); ?>',
-		data    : {'data' : dataArr},
-		success : function(response){
-		alert(response);
-		window.location.href = '<?php echo site_url('view_inventory/inventory_pc'); ?>'; 
-		},
-		error   : function(errResponse){
-		alert(errResponse);
-		window.location.href = '<?php echo site_url('view_inventory/inventory_pc'); ?>'; 
-		}                     
-		});
-		}
-
+		$('#price').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 		});
 		</script>
-
+		<!-- jquery-maskmoney-master -->
 
 	</body>
 </html>

@@ -6,20 +6,20 @@
 	<body>
 		<section role="main" class="content-body">
 			<header class="page-header">
-				<h2>Category</h2>
+				<h2>Proyek</h2>
 			
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('category/page_category');?>">
+							<a href="<?php echo site_url('view_data/data_inventory');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
-						<li><span>Category</span></li>
-						<li><span>Data Category</span></li>
+						<li><span>Proyek</span></li>
+						<li><span>Data Proyek</span></li>
 					</ol>
-			
-					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+					&nbsp;&nbsp;&nbsp;
+					<!-- <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> -->
 				</div>
 			</header>
 
@@ -35,20 +35,20 @@
 								echo '
 								<div class="alert alert-success alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses menambah form inventory pc.
+								<strong>Success!</strong> Sukses menambah form data.
 								</div>
 								';
 							}
 							elseif($sukses=="")
 							{
-								echo ' ';
+								echo '';
 							}
 							elseif($sukses=="notvalid")
 							{
 								echo '
 								<div class="alert alert-danger alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Danger!</strong> Mohon lengkapi form inventory pc dibawah ini.
+								<strong>Danger!</strong> Mohon lengkapi form data dibawah ini.
 								</div>
 								';
 							}
@@ -58,6 +58,15 @@
 								<div class="alert alert-success alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 								<strong>Success!</strong> Sukses menghapus data.
+								</div>
+								';
+							}
+							elseif($sukses=="suksesedit")
+							{
+								echo '
+								<div class="alert alert-success alert-dismissible fade in">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>Success!</strong> Sukses mengubah data.
 								</div>
 								';
 							}
@@ -76,47 +85,40 @@
 								<!-- <a href="#" class="fa fa-times"></a> -->
 							</div>
 					
-							<h2 class="panel-title">CATEGORY DATA</h2>
+							<h2 class="panel-title">DATA PROYEK</h2>
 						</header>
 						<div class="panel-body">
 							<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 								
 								<div class="mb-md">
-									<a href="<?php echo site_url('category/page_add');?>">
-										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Category</button>
+									<a href="<?php echo site_url('view_data/form_data');?>">
+										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Proyek</button>
 									</a>
 									<button  id="delete" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i>&nbsp; Delete Selected </button>
+
 								</div>
 
 								<thead>
 									<tr>
 										<th>Action</th>
-										<th>Category</th>
-										<th>Spesification</th>
-										<th>Condition</th>
-										<th>Serial Number</th>
-										<th>Product Number</th>
+										<th>ID</th>
+										<th>Nama Proyek</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									$dbipc=$this->db->query("SELECT * FROM kategori ORDER BY id DESC")->result();
+									$dbipc=$this->db->query("SELECT * FROM input_proyek ORDER BY id DESC")->result();
     								foreach ($dbipc as $value2){
 									?>
 									<tr class="gradeX">
 										<td><input type="checkbox"  id="<?php echo $value2->id; ?>" name="id[]" value="<?php echo $value2->id; ?>"></td>
-										<td><?php echo $value2->kategori?></td>
-										<td><?php echo $value2->spesifikasi?></td>
-										<td><?php echo $value2->kondisi?></td>
-										<td><?php echo $value2->serial_number?></td>
-										<td><?php echo $value2->product_number?></td>
+										<td><?php echo $value2->id?></td>
+										<td><?php echo $value2->proyek?></td>
 										<td>
-											<a href="<?php echo site_url('category/page_edit');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-
-											<a href="<?php echo site_url('category/page_delete');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i>
-											</a>
-										</td>
+											<a href="<?php echo site_url('proses_proyek/page_edit');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+											&nbsp;
+											<a href="<?php echo site_url('proses_proyek/page_delete');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a></td>
 									</tr>
 									<?php } ?>
 									
@@ -128,7 +130,7 @@
 			</div>
 
 
-			<aside id="sidebar-right" class="sidebar-right">
+			<!-- <aside id="sidebar-right" class="sidebar-right">
 				<div class="nano">
 					<div class="nano-content">
 						<a href="#" class="mobile-close visible-xs">
@@ -141,7 +143,7 @@
 								<h6>Upcoming Tasks</h6>
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 								
-								<!-- <h6>Form Tasks</h6>
+								<h6>Form Tasks</h6>
 								<div style="padding: 2%;">
 									<form action="" method="post" class="form-inline">
 										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
@@ -150,7 +152,7 @@
 
 										<button type="submit" class="btn btn-primary btn-sm">submit</button>
 									</form>
-								</div> -->
+								</div>
 
 								<ul>
 									<li>
@@ -165,7 +167,7 @@
 						</div>
 					</div>
 				</div>
-			</aside>
+			</aside> -->
 			
 		</section>
 
@@ -262,15 +264,15 @@
 		function sendResponse(dataArr){
 		$.ajax({
 		type    : 'post',
-		url     : '<?php echo site_url('crud_category/select_del'); ?>',
+		url     : '<?php echo site_url('proses_data/select_del'); ?>',
 		data    : {'data' : dataArr},
 		success : function(response){
 		alert(response);
-		window.location.href = '<?php echo site_url('category/page_category'); ?>'; 
+		window.location.href = '<?php echo site_url('view_data/data_inventory'); ?>'; 
 		},
 		error   : function(errResponse){
 		alert(errResponse);
-		window.location.href = '<?php echo site_url('category/page_category'); ?>'; 
+		window.location.href = '<?php echo site_url('view_data/data_inventory'); ?>'; 
 		}                     
 		});
 		}

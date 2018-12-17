@@ -64,7 +64,7 @@
 			<!-- start: header -->
 			<header class="header">
 				<div class="logo-container">
-					<a href="../" class="logo">
+					<a href="#" class="logo">
 						<img src="<?php echo base_url();?>assets/images/logo.png" height="35" alt="JSOFT Admin" />
 					</a>
 					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -75,14 +75,14 @@
 				<!-- start: search & user box -->
 				<div class="header-right">
 			
-					<form action="pages-search-results.html" class="search nav-form">
+					<!-- <form action="pages-search-results.html" class="search nav-form">
 						<div class="input-group input-search">
 							<input type="text" class="form-control" name="q" id="q" placeholder="Search...">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
 							</span>
 						</div>
-					</form>
+					</form> -->
 			
 					<span class="separator"></span>
 			
@@ -90,7 +90,7 @@
 						<li>
 							<a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
 								<i class="fa fa-tasks"></i>
-								<span class="badge">3</span>
+								<!-- <span class="badge">3</span> -->
 							</a>
 			
 							<div class="dropdown-menu notification-menu large">
@@ -170,7 +170,7 @@
 						<li>
 							<a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
 								<i class="fa fa-bell"></i>
-								<span class="badge">3</span>
+								<!-- <span class="badge">3</span> -->
 							</a>
 			
 							<div class="dropdown-menu notification-menu">
@@ -240,11 +240,9 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+									<a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i> My Profile</a>
 								</li>
-								<!-- <li>
-									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
-								</li> -->
+								
 								<li>
 									<a role="menuitem" tabindex="-1" href="<?php echo site_url('proses_login/logout');?>"><i class="fa fa-power-off"></i> Logout</a>
 								</li>
@@ -262,7 +260,7 @@
 				
 					<div class="sidebar-header">
 						<div class="sidebar-title">
-							Navigation
+							<font color="white"> Navigation </font>
 						</div>
 						<div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -287,17 +285,17 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="<?php echo site_url('cinv/inventory_pc');?>" >
-													Inventory PC
+												<a href="<?php echo site_url('view_inventory/inventory_pc');?>" >
+													Inventory Set PC
 												</a>
 											</li>
 											<li>
-												<a href="<?php echo site_url('cinv/inventory_printer');?>">
+												<a href="<?php echo site_url('view_inventory/inventory_printer');?>">
 													Inventory Printer
 												</a>
 											</li>
 											<li>
-												<a href="#3">
+												<a href="<?php echo site_url('view_inventory/inventory_scanner');?>">
 													Inventory Scanner
 												</a>
 											</li>
@@ -305,30 +303,23 @@
 									</li>
 
 									<li class="">
-										<a href="<?php echo site_url('category/page_category');?>">
-											<i class="fa fa-cubes" aria-hidden="true"></i>
-											<span>Kategori Data</span>
+										<a href="<?php echo site_url('view_data/data_inventory');?>">
+											<i class="fa fa-desktop" aria-hidden="true"></i>
+											<span>Data Inventory</span>
 										</a>
 									</li>
 
 									<li class="">
-										<a href="<?php echo site_url('cpembelian/data_pembelian');?>">
-											<i class="fa fa-money" aria-hidden="true"></i>
-											<span>Data Pembelian</span>
-										</a>
-									</li>
-
-									<li class="">
-										<a href="#">
-											<i class="fa fa-users" aria-hidden="true"></i>
-											<span>Tambah Pengguna</span>
-										</a>
-									</li>
-
-									<li class="">
-										<a href="#">
+										<a href="<?php echo site_url('view_proyek/proyek');?>">
 											<i class="fa fa-building" aria-hidden="true"></i>
-											<span>Tambah Proyek</span>
+											<span>Input Proyek</span>
+										</a>
+									</li>
+
+									<li class="">
+										<a href="#">
+											<i class="fa fa-user" aria-hidden="true"></i>
+											<span>Management User</span>
 										</a>
 									</li>
 									
@@ -359,7 +350,7 @@
 				
 							<hr class="separator" /> -->
 				
-							<div class="sidebar-widget widget-stats">
+							<!-- <div class="sidebar-widget widget-stats">
 								<div class="widget-header">
 									<h6>STATS</h6>
 									
@@ -392,27 +383,10 @@
 												</div>
 											</div>
 										</li>
-										<!-- <li>
-											<span class="stats-title">Stat 2</span>
-											<span class="stats-complete">70%</span>
-											<div class="progress">
-												<div class="progress-bar progress-bar-primary progress-without-number" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
-													<span class="sr-only">70% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<span class="stats-title">Stat 3</span>
-											<span class="stats-complete">2%</span>
-											<div class="progress">
-												<div class="progress-bar progress-bar-primary progress-without-number" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-													<span class="sr-only">2% Complete</span>
-												</div>
-											</div>
-										</li> -->
+										
 									</ul>
 								</div>
-							</div>
+							</div> -->
 						</div>
 				
 					</div>

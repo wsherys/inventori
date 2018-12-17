@@ -11,7 +11,7 @@ class proses_register extends CI_Controller {
     $this->load->helper('url');
     $this->load->helper(array('Form', 'Cookie', 'String'));
     $this->load->library('session');
-    //session_destroy();
+   
   }
 
 

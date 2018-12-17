@@ -11,15 +11,15 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('cinv/inventory_printer');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_printer');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
 						<li><span>Inventory</span></li>
 						<li><span>Inventory Printer</span></li>
 					</ol>
-			
-					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+					&nbsp;&nbsp;&nbsp;
+					<!-- <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> -->
 				</div>
 			</header>
 
@@ -83,7 +83,7 @@
 							<h2 class="panel-title">Form Inventory Printer</h2>
 						</header>
 						<div class="panel-body">
-							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('crudinventory/insert_printer');?>">
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('proses_inventory/insert_printer');?>">
 								
 								<!-- 1 -->
 								<div class="form-group">
@@ -114,7 +114,7 @@
 									<div class="col-md-6">
 										<select name="printer" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                      $sel_print=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="PRINTER" ')->result();
+					                      $sel_print=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="PRINTER" ')->result();
 					                      foreach ($sel_print as $x){
 					                      ?>
 					                      <option value="<?php  echo $x->spesifikasi;?>"><?php echo $x->spesifikasi; ?> </option>
@@ -129,7 +129,7 @@
 									<div class="col-md-6">
 										<select name="posisi" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                      $sel_lokasi=$this->db->query('SELECT nama_proyek FROM kategori_proyek ')->result();
+					                      $sel_lokasi=$this->db->query('SELECT nama_proyek FROM input_proyek ')->result();
 					                      foreach ($sel_lokasi as $x){
 					                      ?>
 					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?> </option>
@@ -146,7 +146,17 @@
 											<span class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</span>
-											<input type="text" name="tgl" placeholder="month/day/year" data-plugin-datepicker class="form-control input-sm">
+											<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+											<link rel="stylesheet" href="/resources/demos/style.css">
+											<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+											<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+											<script>
+											$( function() {
+											var date = $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+											} );
+											</script>
+											<input type="datetime" name="tgl" placeholder="month/day/year" id="datepicker" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -169,7 +179,7 @@
 			</div>
 
 
-			<aside id="sidebar-right" class="sidebar-right">
+			<!-- <aside id="sidebar-right" class="sidebar-right">
 				<div class="nano">
 					<div class="nano-content">
 						<a href="#" class="mobile-close visible-xs">
@@ -182,7 +192,7 @@
 								<h6>Upcoming Tasks</h6>
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 								
-								<!-- <h6>Form Tasks</h6>
+								<h6>Form Tasks</h6>
 								<div style="padding: 2%;">
 									<form action="" method="post" class="form-inline">
 										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
@@ -191,7 +201,7 @@
 
 										<button type="submit" class="btn btn-primary btn-sm">submit</button>
 									</form>
-								</div> -->
+								</div>
 
 								<ul>
 									<li>
@@ -206,18 +216,16 @@
 						</div>
 					</div>
 				</div>
-			</aside>
+			</aside> -->
 		</section>
 
 
 		
 
 		<!-- Vendor -->
-		<script src="<?php echo base_url();?>/assets/vendor/jquery/jquery.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap/js/bootstrap.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/magnific-popup/magnific-popup.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
 		<!-- Specific Page Vendor -->

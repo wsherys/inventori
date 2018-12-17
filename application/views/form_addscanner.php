@@ -6,20 +6,20 @@
 	<body>
 		<section role="main" class="content-body">
 			<header class="page-header">
-				<h2>Category</h2>
+				<h2>Inventory</h2>
 			
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('category/page_add');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_scanner');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
-						<li><span>Data Category</span></li>
-						<li><span>Add Category</span></li>
+						<li><span>Inventory</span></li>
+						<li><span>Inventory Scanner</span></li>
 					</ol>
-			
-					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+					&nbsp;&nbsp;&nbsp;
+					<!-- <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> -->
 				</div>
 			</header>
 
@@ -35,19 +35,19 @@
 								echo '
 								<div class="alert alert-success alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Success!</strong> Sukses menambah form inventory pc.
+								<strong>Success!</strong> Sukses menambah form inventory scanner.
 								</div>
 								';
 							}
 							elseif($sukses=="")
 							{
 								echo '
-								<div class="alert alert-info alert-dismissible fade in">
-								<strong>Nama Kategori PC : </strong> masukkan <strong>processor, psu, ram, vga, hardisk, motherboard, lcd, keyboard, mouse</strong>.<br>
-								<strong>Nama Kategori Printer : </strong> Masukkan <strong>PRINTER</strong>.<br>
-								<strong>Nama Kategori Scanner : </strong> Masukkan <strong>SCANNER</strong>.<br>
-								<strong>Nama Kategori Lainnya : </strong> Masukkan <strong>Lainnya</strong>.<br>
+								<div class="alert alert-info">
+									<strong>Informasi : </strong> Anda dapat menambah data terlebih dahulu di menu <strong> Kategori Data</strong>.
+									<br>
+									<strong>Tambah unit : </strong> Masukkan form dibawah ini dengan lengkap.
 								</div>
+
 								';
 							}
 							elseif($sukses=="notvalid")
@@ -55,7 +55,7 @@
 								echo '
 								<div class="alert alert-danger alert-dismissible fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Info!</strong> Mohon lengkapi form dibawah ini.
+								<strong>Danger!</strong> Mohon lengkapi form inventory scanner dibawah ini.
 								</div>
 								';
 							}
@@ -80,66 +80,97 @@
 								<a href="#" class="fa fa-caret-down"></a>
 								<!-- <a href="#" class="fa fa-times"></a> -->
 							</div>
-							<h2 class="panel-title">Form Category</h2>
+							<h2 class="panel-title">Form Inventory Scanner</h2>
 						</header>
 						<div class="panel-body">
-							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('crud_category/confirm');?>">
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('proses_inventory/insert_scanner');?>">
 								
+								<!-- 1 -->
+								<div class="form-group">
+									<?php
+				                      $qpc=$this->db->query("SELECT * FROM inventory_scanner")->num_rows();
+				                      if($qpc == 0){$x=1;}
+				                      elseif($qpc >= 1)
+				                      {
+				                        $fore=$this->db->query("SELECT * FROM inventory_scanner")->result();//harus ada nilai
+				                        foreach ($fore as $key){}
+
+				                        $y=$key->kode_scanner;
+				                        $yy=substr($y,11,255);
+				                        $x=$yy+1;
+
+				                      }
+				                     ?>
+									<label class="col-md-3 control-label" for="inputDefault">Kode Inventory Scanner</label>
+									<div class="col-md-6">
+										<input type="text" name="kode" class="form-control input-sm " id="inputDefault" value="IT/SCANNER/<?php echo $x; ?>" readonly="" >
+									</div>
+								</div>
+								
+
 								<!-- 2 -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Nama Kategori</label>
+									<label class="col-md-3 control-label" for="inputDefault">Spesifikasi Scanner</label>
 									<div class="col-md-6">
-										<input type="text" name="nama_kategori" placeholder="masukkan kategori" class="form-control">
+										<select name="scanner" data-plugin-selectTwo class="form-control input-sm populate">
+					                      <?php
+					                      $sel_print=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="SCANNER" ')->result();
+					                      foreach ($sel_print as $x){
+					                      ?>
+					                      <option value="<?php  echo $x->spesifikasi;?>"><?php echo $x->spesifikasi; ?> </option>
+					                      <?php } ?>
+					                    </select>
 									</div>
 								</div>
 
 								<!-- 2 -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Keterangan Spesifikasi</label>
+									<label class="col-md-3 control-label" for="inputDefault">Posisi Scanner</label>
 									<div class="col-md-6">
-										<input type="text" name="spesifikasi" placeholder="masukkan spesifikasi" class="form-control">
+										<select name="posisi" data-plugin-selectTwo class="form-control input-sm populate">
+					                      <?php
+					                      $sel_lokasi=$this->db->query('SELECT nama_proyek FROM input_proyek ')->result();
+					                      foreach ($sel_lokasi as $x){
+					                      ?>
+					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?> </option>
+					                      <?php } ?>
+					                    </select>
 									</div>
 								</div>
 
-								<!-- 2 -->
+								<!-- 11 -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Kondisi</label>
+									<label class="col-md-3 control-label">Tanggal Diterima</label>
 									<div class="col-md-6">
-										<select name="kondisi" class="form-control">
-											<option value="Baru">Baru</option>
-											<option value="Bekas">Bekas</option>
-										</select>
-									</div>
-								</div>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</span>
+											<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+											<link rel="stylesheet" href="/resources/demos/style.css">
+											<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+											<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-								<!-- 2 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Serial number</label>
-									<div class="col-md-6">
-										<input type="text" name="sn" placeholder="masukkan serial number" class="form-control">
-									</div>
-								</div>
-
-								<!-- 2 -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputDefault">Product number</label>
-									<div class="col-md-6">
-										<input type="text" name="pn" placeholder="masukkan product number" class="form-control">
+											<script>
+											$( function() {
+											var date = $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+											} );
+											</script>
+											<input type="datetime" name="tgl" placeholder="month/day/year" id="datepicker" class="form-control input-sm">
+										</div>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-md-4 text-right">
 										<input type="submit" class="btn btn-primary">
-										</form>
-
-										<a href="<?php echo site_url('category/page_category');?>">
+										<a href="<?php echo site_url('cinv/inventory_printer');?>">
 											<input type="button" value="kembali" class="btn btn-default">
 										</a>
 									</div>
 								</div>
 
-							
+							</form>
 						</div>
 					</section>
 				</div>
@@ -148,7 +179,7 @@
 			</div>
 
 
-			<aside id="sidebar-right" class="sidebar-right">
+			<!-- <aside id="sidebar-right" class="sidebar-right">
 				<div class="nano">
 					<div class="nano-content">
 						<a href="#" class="mobile-close visible-xs">
@@ -161,7 +192,7 @@
 								<h6>Upcoming Tasks</h6>
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 								
-								<!-- <h6>Form Tasks</h6>
+								<h6>Form Tasks</h6>
 								<div style="padding: 2%;">
 									<form action="" method="post" class="form-inline">
 										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
@@ -170,7 +201,7 @@
 
 										<button type="submit" class="btn btn-primary btn-sm">submit</button>
 									</form>
-								</div> -->
+								</div>
 
 								<ul>
 									<li>
@@ -185,19 +216,16 @@
 						</div>
 					</div>
 				</div>
-			</aside>
-			
+			</aside> -->
 		</section>
 
 
 		
 
 		<!-- Vendor -->
-		<script src="<?php echo base_url();?>/assets/vendor/jquery/jquery.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap/js/bootstrap.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/magnific-popup/magnific-popup.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
 		<!-- Specific Page Vendor -->

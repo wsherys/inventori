@@ -15,7 +15,7 @@ class cnoremember extends CI_Controller {
         $user=$this->session->userdata("username");
         if($user=="")
         {
-            redirect('clogin/index');
+            redirect('view_login/page_login');
         }
     }
 

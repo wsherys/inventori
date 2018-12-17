@@ -11,15 +11,15 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('cinv/inventory_printer');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_printer');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
 						<li><span>Inventory</span></li>
 						<li><span>Inventory Printer</span></li>
 					</ol>
-			
-					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+					&nbsp;&nbsp;&nbsp;
+					<!-- <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> -->
 				</div>
 			</header>
 
@@ -61,6 +61,15 @@
 								</div>
 								';
 							}
+							elseif($sukses=="suksesedit")
+							{
+								echo '
+								<div class="alert alert-success alert-dismissible fade in">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>Success!</strong> Sukses mengubah data.
+								</div>
+								';
+							}
 						?>
 					</section>
 				</div>
@@ -82,7 +91,7 @@
 							<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 								
 								<div class="mb-md">
-									<a href="<?php echo site_url('cinv/form_invprinter');?>">
+									<a href="<?php echo site_url('view_inventory/form_invprinter');?>">
 										<button id="addToTable" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i>&nbsp; Add Inventory</button>
 									</a>
 
@@ -112,9 +121,9 @@
 										<td><?php echo $value2->spesifikasi_printer?></td>
 										<td><?php echo $value2->posisi_printer?></td>
 										<td>
-											<a href="<?php echo site_url('crudinventory/page_editprinter');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+											<a href="<?php echo site_url('proses_inventory/page_editprinter');?>/?id=<?php echo $value2->id; ?>" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
 											&nbsp;
-											<a href="<?php echo site_url('crudinventory/page_del_printer');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i>
+											<a href="<?php echo site_url('proses_inventory/page_del_printer');?>/?id=<?php echo $value2->id; ?>" class="on-default remove-row"><i class="fa fa-trash-o"></i>
 											</a>
 										</td>
 									</tr>
@@ -128,7 +137,7 @@
 			</div>
 
 
-			<aside id="sidebar-right" class="sidebar-right">
+			<!-- <aside id="sidebar-right" class="sidebar-right">
 				<div class="nano">
 					<div class="nano-content">
 						<a href="#" class="mobile-close visible-xs">
@@ -141,7 +150,7 @@
 								<h6>Upcoming Tasks</h6>
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 								
-								<!-- <h6>Form Tasks</h6>
+								<h6>Form Tasks</h6>
 								<div style="padding: 2%;">
 									<form action="" method="post" class="form-inline">
 										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
@@ -150,7 +159,7 @@
 
 										<button type="submit" class="btn btn-primary btn-sm">submit</button>
 									</form>
-								</div> -->
+								</div>
 
 								<ul>
 									<li>
@@ -165,7 +174,7 @@
 						</div>
 					</div>
 				</div>
-			</aside>
+			</aside> -->
 			
 		</section>
 
@@ -262,15 +271,15 @@
 		function sendResponse(dataArr){
 		$.ajax({
 		type    : 'post',
-		url     : '<?php echo site_url('crudinventory/select_delprint'); ?>',
+		url     : '<?php echo site_url('proses_inventory/select_delprint'); ?>',
 		data    : {'data' : dataArr},
 		success : function(response){
 		alert(response);
-		window.location.href = '<?php echo site_url('cinv/inventory_printer'); ?>'; 
+		window.location.href = '<?php echo site_url('view_inventory/inventory_printer'); ?>'; 
 		},
 		error   : function(errResponse){
 		alert(errResponse);
-		window.location.href = '<?php echo site_url('cinv/inventory_printer'); ?>'; 
+		window.location.href = '<?php echo site_url('view_inventory/inventory_printer'); ?>'; 
 		}                     
 		});
 		}

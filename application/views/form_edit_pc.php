@@ -11,7 +11,7 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('cinv/inventory_pc');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_pc');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
@@ -84,7 +84,7 @@
 						</header>
 						<div class="panel-body">
 							<?php foreach ($fquery as $v){}?>
-							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('crudinventory/editpc');?>">
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('proses_inventory/editpc');?>">
 								
 								<!-- 1 -->
 								<div class="form-group">
@@ -104,7 +104,7 @@
 										<select name="proyek" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <option value="<?php echo $v->proyek; ?>"><?php echo $v->proyek; ?></option>
 					                      <?php
-					                      $sel_proy=$this->db->query('SELECT nama_proyek FROM kategori_proyek')->result();
+					                      $sel_proy=$this->db->query('SELECT nama_proyek FROM input_proyek')->result();
 					                      foreach ($sel_proy as $x){
 					                      ?>
 					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?></option>
@@ -117,15 +117,7 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="inputDefault">Pengguna</label>
 									<div class="col-md-6">
-										<select name="pengguna" data-plugin-selectTwo class="form-control input-sm populate">
-											<option value="<?php echo $v->pengguna; ?>"><?php echo $v->pengguna; ?></option>
-											<?php
-											$sel_proy=$this->db->query('SELECT nama FROM kategori_pengguna')->result();
-											foreach ($sel_proy as $x){
-											?>
-											<option value="<?php  echo $x->nama;?>"><?php echo $x->nama; ?></option>
-											<?php } ?>
-					                    </select>
+										<input type="text" name="pengguna" value="<?php  echo $v->pengguna;?>" placeholder="masukkan pengguna" id="pengguna" onkeyup="penggunaa()"  class="form-control input-sm">
 									</div>
 								</div>
 								<!-- 2 -->
@@ -392,6 +384,17 @@
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.default.js"></script>
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.tabletools.js"></script>
+
+		<!-- uppper -->
+		<script>
+		function penggunaa() 
+		{
+			var x = document.getElementById("pengguna");
+			x.value = x.value.toUpperCase();
+		}
+		
+		</script>
+		<!-- uppper -->
 
 
 	</body>

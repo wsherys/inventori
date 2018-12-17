@@ -11,15 +11,15 @@
 				<div class="right-wrapper pull-right">
 					<ol class="breadcrumbs">
 						<li>
-							<a href="<?php echo site_url('cinv/inventory_pc');?>">
+							<a href="<?php echo site_url('view_inventory/inventory_pc');?>">
 								<i class="fa fa-home"></i>
 							</a>
 						</li>
 						<li><span>Inventory</span></li>
 						<li><span>Inventory PC</span></li>
 					</ol>
-			
-					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+					&nbsp;&nbsp;&nbsp;
+					<!-- <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> -->
 				</div>
 			</header>
 
@@ -83,7 +83,7 @@
 							<h2 class="panel-title">Form Inventory PC</h2>
 						</header>
 						<div class="panel-body">
-							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('crudinventory/insert_pc');?>">
+							<form class="form-horizontal form-bordered" method="post" action="<?php echo site_url('proses_inventory/insert_pc');?>">
 								
 								<!-- 1 -->
 								<div class="form-group">
@@ -99,7 +99,7 @@
 				                        $yy=substr($y,7,255);
 				                        $x=$yy+1;
 				                      }
-				                      ?>
+				                     ?>
 									<label class="col-md-3 control-label" for="inputDefault">Kode Inventory PC</label>
 									<div class="col-md-6">
 										<input type="text" name="kode" class="form-control input-sm " id="inputDefault" value="IT/CPU/<?php echo $x; ?>" readonly="" >
@@ -112,7 +112,7 @@
 									<div class="col-md-6">
 										<select name="proyek" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                      $sel_proy=$this->db->query('SELECT nama_proyek FROM kategori_proyek')->result();
+					                      $sel_proy=$this->db->query('SELECT nama_proyek FROM input_proyek')->result();
 					                      foreach ($sel_proy as $x){
 					                      ?>
 					                      <option value="<?php  echo $x->nama_proyek;?>"><?php echo $x->nama_proyek; ?></option>
@@ -124,14 +124,7 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="inputDefault">Pengguna</label>
 									<div class="col-md-6">
-										<select name="pengguna" data-plugin-selectTwo class="form-control input-sm populate">
-					                      <?php
-					                      $sel_proy=$this->db->query('SELECT nama FROM kategori_pengguna')->result();
-					                      foreach ($sel_proy as $x){
-					                      ?>
-					                      <option value="<?php  echo $x->nama;?>"><?php echo $x->nama; ?></option>
-					                      <?php } ?>
-					                    </select>
+										<input type="text" name="pengguna" placeholder="masukkan pengguna" id="pengguna" onkeyup="penggunaa()"  class="form-control input-sm">
 									</div>
 								</div>
 								<!-- 2 -->
@@ -140,10 +133,10 @@
 									<div class="col-md-6">
 										<select name="processor" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                      $sel_proc=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="PROCESSOR" ')->result();
+					                      $sel_proc=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="PROCESSOR" ')->result();
 					                      foreach ($sel_proc as $x){
 					                      ?>
-					                      <option value="<?php  echo $x->spesifikasi;?>"><?php echo $x->spesifikasi; ?> </option>
+					                      <option value="<?php echo $x->spesifikasi; ?>"><?php echo $x->spesifikasi; ?></option>
 					                      <?php } ?>
 					                    </select>
 									</div>
@@ -154,7 +147,7 @@
 									<div class="col-md-6">
 										<select name="psu" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                        $sel_psu=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="PSU" ')->result();
+					                        $sel_psu=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="PSU" ')->result();
 					                        foreach ($sel_psu as $y){
 					                        ?>
 					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -168,7 +161,7 @@
 									<div class="col-md-6">
 										<select name="ram" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                        $sel_ram=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="RAM" ')->result();
+					                        $sel_ram=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="RAM" ')->result();
 					                        foreach ($sel_ram as $y){
 					                        ?>
 					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -182,7 +175,7 @@
 									<div class="col-md-6">
 										<select name="vga" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                        $sel_vga=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="VGA" ')->result();
+					                        $sel_vga=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="VGA" ')->result();
 					                        foreach ($sel_vga as $y){
 					                        ?>
 					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -196,7 +189,7 @@
 									<div class="col-md-6">
 										<select name="hardisk" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                        $sel_hdd=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="HARDISK" ')->result();
+					                        $sel_hdd=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="HARDISK" ')->result();
 					                        foreach ($sel_hdd as $y){
 					                        ?>
 					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -210,7 +203,7 @@
 									<div class="col-md-6">
 										<select name="motherboard" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-				                            $sel_mb=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="MOTHERBOARD" ')->result();
+				                            $sel_mb=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="MOTHERBOARD" ')->result();
 				                            foreach ($sel_mb as $y){
 				                            ?>
 				                            <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -224,7 +217,7 @@
 									<div class="col-md-6">
 										<select name="lcd" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-							              $sel_lcd=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="LCD" ')->result();
+							              $sel_lcd=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="LCD" ')->result();
 							              foreach ($sel_lcd as $y){
 							              ?>
 							              <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -238,7 +231,7 @@
 									<div class="col-md-6">
 										<select name="keyboard" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                        $sel_keyboard=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="KEYBOARD" ')->result();
+					                        $sel_keyboard=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="KEYBOARD" ')->result();
 					                        foreach ($sel_keyboard as $y){
 					                        ?>
 					                        <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -252,7 +245,7 @@
 									<div class="col-md-6">
 										<select name="mouse" data-plugin-selectTwo class="form-control input-sm populate">
 					                      <?php
-					                      $sel_mouse=$this->db->query('SELECT DISTINCT spesifikasi FROM kategori WHERE kategori="MOUSE" ')->result();
+					                      $sel_mouse=$this->db->query('SELECT DISTINCT spesifikasi FROM data_inventory WHERE kategori="MOUSE" ')->result();
 					                      foreach ($sel_mouse as $y){
 					                      ?>
 					                      <option value="<?php  echo $y->spesifikasi;?>"><?php echo $y->spesifikasi; ?> </option>
@@ -268,7 +261,18 @@
 											<span class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</span>
-											<input type="text" name="tgl" placeholder="month/day/year" data-plugin-datepicker class="form-control input-sm">
+
+											<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+											<link rel="stylesheet" href="/resources/demos/style.css">
+											<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+											<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+											<script>
+											$( function() {
+											var date = $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+											} );
+											</script>
+											<input type="datetime" name="tgl" placeholder="month/day/year" id="datepicker" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -276,7 +280,7 @@
 								<div class="form-group">
 									<div class="col-md-4 text-right">
 										<input type="submit" class="btn btn-primary">
-										<a href="<?php echo site_url('cinv/inventory_pc');?>">
+										<a href="<?php echo site_url('view_inventory/inventory_pc');?>">
 											<input type="button" value="kembali" class="btn btn-default">
 										</a>
 									</div>
@@ -291,7 +295,7 @@
 			</div>
 
 
-			<aside id="sidebar-right" class="sidebar-right">
+			<!-- <aside id="sidebar-right" class="sidebar-right">
 				<div class="nano">
 					<div class="nano-content">
 						<a href="#" class="mobile-close visible-xs">
@@ -304,7 +308,7 @@
 								<h6>Upcoming Tasks</h6>
 								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
 								
-								<!-- <h6>Form Tasks</h6>
+								<h6>Form Tasks</h6>
 								<div style="padding: 2%;">
 									<form action="" method="post" class="form-inline">
 										<input type="" name="datetask" placeholder="date" class="form-control input-sm">
@@ -313,7 +317,7 @@
 
 										<button type="submit" class="btn btn-primary btn-sm">submit</button>
 									</form>
-								</div> -->
+								</div>
 
 								<ul>
 									<li>
@@ -328,7 +332,7 @@
 						</div>
 					</div>
 				</div>
-			</aside>
+			</aside> -->
 			
 		</section>
 
@@ -336,22 +340,22 @@
 		
 
 		<!-- Vendor -->
-		<script src="<?php echo base_url();?>/assets/vendor/jquery/jquery.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap/js/bootstrap.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/magnific-popup/magnific-popup.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+		<!-- <script src="<?php echo base_url();?>/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
+
+		
 		<!-- Specific Page Vendor -->
 		<script src="<?php echo base_url();?>/assets/vendor/pnotify/pnotify.custom.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-		<script src="<?php echo base_url();?>/assets/vendor/select2/select2.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/jquery-maskedinput/jquery.maskedinput.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
@@ -372,9 +376,13 @@
 		<script src="<?php echo base_url();?>/assets/vendor/summernote/summernote.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 		<script src="<?php echo base_url();?>/assets/vendor/ios7-switch/ios7-switch.js"></script>
+
+		<!-- select2 -->
+		<script src="<?php echo base_url();?>/assets/vendor/select2/select2.js"></script>
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="<?php echo base_url();?>/assets/javascripts/theme.js"></script>
-		
+
 		<!-- Theme Custom -->
 		<script src="<?php echo base_url();?>/assets/javascripts/theme.custom.js"></script>
 		
@@ -390,6 +398,16 @@
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="<?php echo base_url();?>/assets/javascripts/tables/examples.datatables.tabletools.js"></script>
 
+		<!-- uppper -->
+		<script>
+		function penggunaa() 
+		{
+			var x = document.getElementById("pengguna");
+			x.value = x.value.toUpperCase();
+		}
+		
+		</script>
+		<!-- uppper -->
 
 	</body>
 </html>

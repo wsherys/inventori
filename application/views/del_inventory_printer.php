@@ -191,7 +191,7 @@
 							<h4>Inventory PRINTER</h4>
 							<p>Anda yakin, ingin menghapus data?</p>
 
-							<form method="post" action="<?php echo site_url('crudinventory/del_printer');?>">
+							<form method="post" action="<?php echo site_url('proses_inventory/del_printer');?>">
 				            	<input type="hidden" name="username" value="<?php $user=$this->session->userdata("username"); echo $user; ?>">
 				            	<input type="hidden" name="id" value="<?php echo $id; ?>">
 						</div>
@@ -202,7 +202,7 @@
 	          <div class="modal-footer">
 	          					<input type="submit" id="desktop-success" value="yakin" class="btn btn-primary">
 				            </form>
-	            <a href="<?php echo site_url('cinv/inventory_printer');?>"> 
+	            <a href="<?php echo site_url('view_inventory/inventory_printer');?>"> 
 	            	<button type="button" class="btn btn-default" >Close</button>
 	            </a>
 	          </div>
